@@ -10,7 +10,8 @@ SRCS = \
 	src/Track.cpp \
 	src/TrackItem.cpp
 
-RSRCS = MusicManager.rdef
+RDEFS = MusicManager.rdef
+RSRCS =
 
 LIBS = be media tracker stdc++
 
