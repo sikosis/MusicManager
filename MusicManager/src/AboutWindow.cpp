@@ -6,8 +6,11 @@
 #include <Button.h>
 #include <File.h>
 #include <Font.h>
+#include <IconUtils.h>
 #include <InterfaceDefs.h>
 #include <Message.h>
+#include <Mime.h>
+#include <Resources.h>
 #include <Roster.h>
 #include <Screen.h>
 #include <String.h>
@@ -16,6 +19,35 @@
 #include <cstring>
 
 namespace {
+
+BBitmap*
+LoadAppIcon()
+{
+	const int32 iconSize = 96;
+	BBitmap* icon = new BBitmap(BRect(0, 0, iconSize - 1, iconSize - 1),
+		B_RGBA32);
+	if (icon->InitCheck() != B_OK) {
+		delete icon;
+		return NULL;
+	}
+
+	BResources* resources = BApplication::AppResources();
+	if (resources != NULL) {
+		size_t dataSize = 0;
+		const uint8* data = static_cast<const uint8*>(
+			resources->LoadResource(B_VECTOR_ICON_TYPE, "BEOS:ICON",
+				&dataSize));
+		if (data != NULL && dataSize > 0
+			&& BIconUtils::GetVectorIcon(data, dataSize, icon) == B_OK) {
+			return icon;
+		}
+	}
+
+	delete icon;
+	return NULL;
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
 
 BString
 VersionString()
@@ -83,26 +115,12 @@ private:
 AboutView::AboutView()
 	:
 	BView(BRect(0, 0, 450, 270), "about view", B_FOLLOW_ALL, B_WILL_DRAW),
-	fIcon(new BBitmap(BRect(0, 0, 31, 31), B_CMAP8)),
+	fIcon(LoadAppIcon()),
 	fCloseButton(new BButton(BRect(360, 230, 430, 258), "close", "OK",
 		new BMessage(B_QUIT_REQUESTED))),
 	fVersion(VersionString())
 {
 	SetViewUIColor(B_PANEL_BACKGROUND_COLOR);
-
-	app_info appInfo;
-	if (fIcon->InitCheck() == B_OK
-		&& be_app->GetAppInfo(&appInfo) == B_OK) {
-		BFile file(&appInfo.ref, B_READ_ONLY);
-		BAppFileInfo fileInfo(&file);
-		if (fileInfo.GetIcon(fIcon, B_LARGE_ICON) != B_OK) {
-			delete fIcon;
-			fIcon = NULL;
-		}
-	} else {
-		delete fIcon;
-		fIcon = NULL;
-	}
 
 	AddChild(fCloseButton);
 }
@@ -142,7 +160,8 @@ AboutView::Draw(BRect updateRect)
 	FillRect(BRect(13, 28, 19, bounds.bottom));
 
 	if (fIcon != NULL) {
-		SetDrawingMode(B_OP_OVER);
+		SetDrawingMode(B_OP_ALPHA);
+		SetBlendingMode(B_PIXEL_ALPHA, B_ALPHA_OVERLAY);
 		DrawBitmap(fIcon, fIcon->Bounds(), BRect(40, 52, 135, 147));
 		SetDrawingMode(B_OP_COPY);
 	}

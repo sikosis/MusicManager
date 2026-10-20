@@ -17,7 +17,7 @@ Haiku Media Kit and does not require SoundPlay.
   randomly from the rotation without immediately repeating the last track.
 - Remove and crop commands, keyboard deletion, and drag reordering.
 - Load and save M3U playlists.
-- Haiku/BeOS-inspired application icon and a resource-driven About window.
+- Native scalable HVIF application icon and a resource-driven About window.
 
 ## Build
 
