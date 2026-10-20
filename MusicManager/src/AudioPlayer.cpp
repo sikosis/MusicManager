@@ -46,7 +46,6 @@ AudioPlayer::Play(const entry_ref& ref)
 	}
 
 	media_format decodedFormat;
-	memset(&decodedFormat, 0, sizeof(decodedFormat));
 	decodedFormat.type = B_MEDIA_RAW_AUDIO;
 	decodedFormat.u.raw_audio = media_raw_audio_format::wildcard;
 

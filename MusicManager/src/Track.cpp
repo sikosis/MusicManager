@@ -3,6 +3,7 @@
 #include <Node.h>
 #include <Path.h>
 #include <TypeConstants.h>
+#include <fs_attr.h>
 
 #include <cctype>
 #include <cstdlib>

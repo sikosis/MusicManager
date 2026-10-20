@@ -2,6 +2,7 @@
 #define MUSIC_MANAGER_TRACK_H
 
 #include <Entry.h>
+#include <Node.h>
 #include <String.h>
 
 class Track {
