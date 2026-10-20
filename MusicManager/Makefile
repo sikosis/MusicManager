@@ -12,7 +12,7 @@ SRCS = \
 
 RSRCS = MusicManager.rdef
 
-LIBS = be media tracker
+LIBS = be media tracker stdc++
 
 SYSTEM_INCLUDE_PATHS =
 LOCAL_INCLUDE_PATHS = src
