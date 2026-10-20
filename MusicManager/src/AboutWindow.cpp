@@ -8,6 +8,7 @@
 #include <Font.h>
 #include <InterfaceDefs.h>
 #include <Message.h>
+#include <Roster.h>
 #include <Screen.h>
 #include <String.h>
 #include <View.h>
