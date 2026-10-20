@@ -14,6 +14,8 @@
 #include <File.h>
 #include <FilePanel.h>
 #include <LayoutBuilder.h>
+#include <Menu.h>
+#include <MenuBar.h>
 #include <MenuItem.h>
 #include <Message.h>
 #include <NodeInfo.h>
@@ -170,6 +172,16 @@ MainWindow::MainWindow()
 	fLastRandomIndex(-1),
 	fTrackCount(0)
 {
+	BMenuBar* menuBar = new BMenuBar("menu bar");
+	BMenu* applicationMenu = new BMenu("Music Manager");
+	applicationMenu->AddItem(new BMenuItem("About Music Manager…",
+		new BMessage(B_ABOUT_REQUESTED)));
+	applicationMenu->AddSeparatorItem();
+	applicationMenu->AddItem(new BMenuItem("Quit",
+		new BMessage(B_QUIT_REQUESTED), 'Q'));
+	applicationMenu->SetTargetForItems(this);
+	menuBar->AddItem(applicationMenu);
+
 	fLibraryView->SetExplicitMinSize(BSize(320, 300));
 	fQueueView->SetExplicitMinSize(BSize(380, 100));
 	fRotationView->SetExplicitMinSize(BSize(380, 180));
@@ -216,10 +228,13 @@ MainWindow::MainWindow()
 			.Add(new BButton("save", "Save M3U", new BMessage(kSavePlaylist)))
 		.End();
 
-	BLayoutBuilder::Group<>(this, B_HORIZONTAL, 0)
-		.Add(libraryPanel, 0.8f)
-		.Add(new BSeparatorView(B_VERTICAL))
-		.Add(playlistPanel, 1.2f);
+	BLayoutBuilder::Group<>(this, B_VERTICAL, 0)
+		.Add(menuBar)
+		.AddGroup(B_HORIZONTAL, 0, 1.0f)
+			.Add(libraryPanel, 0.8f)
+			.Add(new BSeparatorView(B_VERTICAL))
+			.Add(playlistPanel, 1.2f)
+		.End();
 
 	fOpenPanel = new BFilePanel(B_OPEN_PANEL);
 	fOpenPanel->SetTarget(BMessenger(this));
@@ -252,6 +267,12 @@ void
 MainWindow::MessageReceived(BMessage* message)
 {
 	switch (message->what) {
+		case B_ABOUT_REQUESTED:
+			be_app->AboutRequested();
+			break;
+		case B_QUIT_REQUESTED:
+			be_app->PostMessage(B_QUIT_REQUESTED);
+			break;
 		case kStartLibraryQuery:
 			_StartLibraryQuery();
 			break;

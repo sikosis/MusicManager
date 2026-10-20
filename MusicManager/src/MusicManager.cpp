@@ -1,3 +1,4 @@
+#include "AboutWindow.h"
 #include "MainWindow.h"
 
 #include <Application.h>
@@ -9,6 +10,7 @@ class MusicManagerApplication : public BApplication {
 public:
 	MusicManagerApplication();
 	virtual ~MusicManagerApplication();
+	virtual void AboutRequested();
 	virtual void ReadyToRun();
 };
 
@@ -23,6 +25,15 @@ MusicManagerApplication::MusicManagerApplication()
 
 MusicManagerApplication::~MusicManagerApplication()
 {
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+void
+MusicManagerApplication::AboutRequested()
+{
+	AboutWindow* window = new AboutWindow();
+	window->Show();
 }
 //---------------------------------------------------------------------------------------------------------------------------------//
 

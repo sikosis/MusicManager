@@ -17,6 +17,7 @@ Haiku Media Kit and does not require SoundPlay.
   randomly from the rotation without immediately repeating the last track.
 - Remove and crop commands, keyboard deletion, and drag reordering.
 - Load and save M3U playlists.
+- Haiku/BeOS-inspired application icon and a resource-driven About window.
 
 ## Build
 
@@ -44,3 +45,4 @@ original application. Volumes that do not support queries are skipped.
 - Right-click a playlist for **Remove selected** and **Crop to selection**.
 - **Start** begins automatic playback; **Stop** stops it; **Next** skips ahead.
 - **Load M3U** and **Save M3U** operate on the random rotation.
+- Choose **Music Manager → About Music Manager…** for version and credits.

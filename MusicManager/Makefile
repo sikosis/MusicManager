@@ -2,6 +2,7 @@ NAME = MusicManager
 TYPE = APP
 
 SRCS = \
+	src/AboutWindow.cpp \
 	src/AudioPlayer.cpp \
 	src/LibraryQuery.cpp \
 	src/MainWindow.cpp \
