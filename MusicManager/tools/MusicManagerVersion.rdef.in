@@ -1,0 +1,9 @@
+resource app_version {
+	major = @MAJOR@,
+	middle = @MIDDLE@,
+	minor = @MINOR@,
+	variety = B_APPV_FINAL,
+	internal = 0,
+	short_info = "Music Manager @VERSION@",
+	long_info = "A native Haiku music library and playlist manager"
+};

@@ -2,6 +2,7 @@
 #define MUSIC_MANAGER_MAIN_WINDOW_H
 
 #include <Entry.h>
+#include <String.h>
 #include <Window.h>
 
 #include <map>
@@ -25,6 +26,12 @@ public:
 
 	virtual void MessageReceived(BMessage* message);
 	virtual bool QuitRequested();
+
+	bool IsPlaying() const;
+	BString NowPlaying() const;
+	int32 LibraryTrackCount() const;
+	int32 QueueTrackCount() const;
+	int32 RotationTrackCount() const;
 
 private:
 	void _StartLibraryQuery();

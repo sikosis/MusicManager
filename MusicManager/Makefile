@@ -3,6 +3,7 @@ TYPE = APP
 
 SRCS = \
 	src/AboutWindow.cpp \
+	src/AppVersion.cpp \
 	src/AudioPlayer.cpp \
 	src/LibraryQuery.cpp \
 	src/MainWindow.cpp \
@@ -11,7 +12,9 @@ SRCS = \
 	src/Track.cpp \
 	src/TrackItem.cpp
 
-RDEFS = MusicManager.rdef
+VERSION_RDEF = generated/MusicManagerVersion.rdef
+
+RDEFS = MusicManager.rdef $(VERSION_RDEF)
 RSRCS =
 
 LIBS = be media tracker stdc++
@@ -28,3 +31,7 @@ LINKER_FLAGS =
 WARNINGS = ALL
 
 include /system/develop/etc/makefile-engine
+
+$(VERSION_RDEF): VERSION tools/generate-version.sh \
+	tools/MusicManagerVersion.rdef.in
+	sh tools/generate-version.sh VERSION $(VERSION_RDEF)

@@ -330,6 +330,12 @@ MainWindow::MessageReceived(BMessage* message)
 		case kStartStop:
 			_SetAutomaticPlayback(!fAutomaticPlayback);
 			break;
+		case kStartPlayback:
+			_SetAutomaticPlayback(true);
+			break;
+		case kStopPlayback:
+			_SetAutomaticPlayback(false);
+			break;
 		case kNextTrack:
 			if (!fAutomaticPlayback) {
 				fAutomaticPlayback = true;
@@ -377,6 +383,46 @@ MainWindow::QuitRequested()
 {
 	fAudioPlayer->Stop();
 	return true;
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+bool
+MainWindow::IsPlaying() const
+{
+	return fAudioPlayer != NULL && fAudioPlayer->IsPlaying();
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+BString
+MainWindow::NowPlaying() const
+{
+	return fNowPlaying->Text();
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+int32
+MainWindow::LibraryTrackCount() const
+{
+	return fTrackCount;
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+int32
+MainWindow::QueueTrackCount() const
+{
+	return fQueueView->CountItems();
+}
+//---------------------------------------------------------------------------------------------------------------------------------//
+
+
+int32
+MainWindow::RotationTrackCount() const
+{
+	return fRotationView->CountItems();
 }
 //---------------------------------------------------------------------------------------------------------------------------------//
 

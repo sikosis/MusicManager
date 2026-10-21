@@ -18,6 +18,7 @@ Haiku Media Kit and does not require SoundPlay.
 - Remove and crop commands, keyboard deletion, and drag reordering.
 - Load and save M3U playlists.
 - Native scalable HVIF application icon and a resource-driven About window.
+- Native Haiku scripting support for use with `hey`.
 
 ## Build
 
@@ -29,6 +30,29 @@ make
 
 The executable is written to the architecture-specific object directory used
 by Haiku's `makefile-engine`.
+
+The application version is defined once in `VERSION`. The build generates the
+embedded Haiku version resource from that file, and both the About window and
+the scripting interface read the embedded value.
+
+## Scripting
+
+Music Manager exposes a native scripting suite. With the application running,
+the following commands can be used from Terminal:
+
+```sh
+hey MusicManager get Version
+hey MusicManager get Playing
+hey MusicManager get NowPlaying
+hey MusicManager count Library
+hey MusicManager count Queue
+hey MusicManager count Rotation
+hey MusicManager execute Start
+hey MusicManager execute Stop
+hey MusicManager execute Next
+```
+
+Run `hey MusicManager getsuites` to inspect the complete suite.
 
 ## Metadata and queries
 

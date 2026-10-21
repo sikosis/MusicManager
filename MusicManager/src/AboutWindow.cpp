@@ -1,22 +1,19 @@
 #include "AboutWindow.h"
 
-#include <AppFileInfo.h>
+#include "AppVersion.h"
+
 #include <Application.h>
 #include <Bitmap.h>
 #include <Button.h>
-#include <File.h>
 #include <Font.h>
 #include <IconUtils.h>
 #include <InterfaceDefs.h>
 #include <Message.h>
 #include <Mime.h>
 #include <Resources.h>
-#include <Roster.h>
 #include <Screen.h>
 #include <String.h>
 #include <View.h>
-
-#include <cstring>
 
 namespace {
 
@@ -52,45 +49,8 @@ LoadAppIcon()
 BString
 VersionString()
 {
-	BString version("Version 0.1.0");
-	app_info appInfo;
-	if (be_app->GetAppInfo(&appInfo) != B_OK)
-		return version;
-
-	BFile file(&appInfo.ref, B_READ_ONLY);
-	BAppFileInfo fileInfo(&file);
-	version_info info;
-	memset(&info, 0, sizeof(info));
-	if (fileInfo.GetVersionInfo(&info, B_APP_VERSION_KIND) != B_OK)
-		return version;
-
-	version.SetToFormat("Version %" B_PRIu32 ".%" B_PRIu32 ".%" B_PRIu32,
-		info.major, info.middle, info.minor);
-	const char* variety = NULL;
-	switch (info.variety) {
-		case B_DEVELOPMENT_VERSION:
-			variety = "development";
-			break;
-		case B_ALPHA_VERSION:
-			variety = "alpha";
-			break;
-		case B_BETA_VERSION:
-			variety = "beta";
-			break;
-		case B_GAMMA_VERSION:
-			variety = "gamma";
-			break;
-		case B_GOLDEN_MASTER_VERSION:
-			variety = "release candidate";
-			break;
-		default:
-			break;
-	}
-	if (variety != NULL) {
-		version << " " << variety;
-		if (info.internal > 0)
-			version << " " << info.internal;
-	}
+	BString version("Version ");
+	version << AppVersion();
 	return version;
 }
 //---------------------------------------------------------------------------------------------------------------------------------//

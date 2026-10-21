@@ -13,6 +13,8 @@ enum {
 	kPlaylistInvoked = 'pliv',
 	kPlaylistChanged = 'plch',
 	kStartStop = 'stsp',
+	kStartPlayback = 'play',
+	kStopPlayback = 'stop',
 	kNextTrack = 'next',
 	kPlaybackFinished = 'pfin',
 	kLoadPlaylist = 'load',
